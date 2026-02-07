@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Selenium Testing Videos</title>
+  <style>
+    body { font-family: Arial; background:#f4f4f4; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(300px,1fr)); gap:20px; }
+    .card { background:white; padding:10px; border-radius:8px; }
+    img { width:100%; border-radius:6px; }
+  </style>
+</head>
+<body>
+
+<h1>🎯 Selenium Testing Video Hub</h1>
+<p>Curated Selenium automation tutorials</p>
+
+<div class="grid" id="videos"></div>
+
+<script>
+fetch("/api/videos")
+  .then(res => res.json())
+  .then(data => {
+    const container = document.getElementById("videos");
+    data.forEach(v => {
+      container.innerHTML += `
+        <div class="card">
+          <a href="https://www.youtube.com/watch?v=${v.id.videoId}" target="_blank">
+            <img src="${v.snippet.thumbnails.medium.url}">
+            <h4>${v.snippet.title}</h4>
+          </a>
+          <p>${v.snippet.channelTitle}</p>
+        </div>
+      `;
+    });
+  });
+</script>
+
+</body>
+</html>
