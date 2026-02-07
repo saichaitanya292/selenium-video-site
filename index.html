@@ -1,133 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <title>Selenium Testing Videos | Tutorials, Java, Python, Interview</title>
+
+  <!-- AdSense -->
+  <script async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6877162813376837"
+    crossorigin="anonymous"></script>
+
+  <!-- SEO -->
+  <link rel="canonical" href="https://selenium-video-site.vercel.app/">
+  <meta name="google-site-verification" content="yXrqeJAP7WV9e7s_9j-JVRBcBnaaQelGx-Y_6MKN0b0" />
+  <meta name="description" content="Watch Selenium testing tutorial videos including Selenium Java, Python automation, frameworks, interview questions and real-world projects." />
+  <meta name="keywords" content="selenium testing videos, selenium automation tutorial, selenium java, selenium python, selenium interview questions" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Selenium Testing Video Hub" />
+  <meta property="og:description" content="Free Selenium automation tutorials, interview prep, Java & Python videos." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://selenium-video-site.vercel.app" />
+
+  <style>
+    button {
+      padding: 8px 14px;
+      margin-right: 6px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background: #1e90ff;
+      color: white;
+    }
+    button:hover { background: #0b5ed7; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .card img {
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    .card h4 {
+      font-size: 14px;
+      margin: 8px 0;
+    }
+  </style>
+</head>
+
 <body>
-    <head>
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6877162813376837"
-     crossorigin="anonymous"></script>
-        <title>Selenium Testing Videos | Tutorials, Java, Python, Interview</title>
-        <link rel="canonical" href="https://selenium-video-site.vercel.app/">
-        <meta name="google-site-verification" content="yXrqeJAP7WV9e7s_9j-JVRBcBnaaQelGx-Y_6MKN0b0" />
-        <meta name="description" content="Watch Selenium testing tutorial videos including Selenium Java, Python automation, frameworks, interview questions and real-world projects." />
-      
-        <meta name="keywords" content="selenium testing videos, selenium automation tutorial, selenium java, selenium python, selenium interview questions" />
-      
-        <meta name="robots" content="index, follow" />
-      
-        <!-- Open Graph (for sharing) -->
-        <meta property="og:title" content="Selenium Testing Video Hub" />
-        <meta property="og:description" content="Free Selenium automation tutorials, interview prep, Java & Python videos." />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://selenium-video-site.vercel.app" />
-      </head>
-      <h1>Selenium Testing Video Hub</h1>
-<h2>Learn Selenium Automation with Videos</h2>
+  <h1>🎯 Selenium Testing Video Hub</h1>
+  <h2>Learn Selenium Automation with Videos</h2>
 
-    <style>
-        button {
-          padding: 8px 14px;
-          margin-right: 6px;
-          border: none;
-          border-radius: 6px;
-          cursor: pointer;
-          background: #1e90ff;
-          color: white;
-        }
-        button:hover {
-          background: #0b5ed7;
-        }
-      </style>
+  <p>Search Selenium automation tutorials</p>
 
-    <h1>🎯 Selenium Testing Video Hub</h1>
-    <p>Search Selenium automation tutorials</p>
-    <div id="categories" style="margin-bottom:15px;">
-        <button onclick="loadCategory('selenium testing tutorial')">Basics</button>
-        <button onclick="loadCategory('selenium java automation')">Java</button>
-        <button onclick="loadCategory('selenium python automation')">Python</button>
-        <button onclick="loadCategory('selenium framework tutorial')">Framework</button>
-        <button onclick="loadCategory('selenium interview questions')">Interview</button>
-      </div>
-    
-    <input
-  type="text"
-  id="searchInput"
-  placeholder="Search: selenium java, python, testng..."
-  onkeyup="debouncedSearch(this.value)"
-  style="width:300px;padding:10px;"
-/>
-    <button onclick="searchVideos()">Search</button>
-    
-    <br><br>
-    
-    <div class="grid" id="videos"></div>
-    
-    <script>
-        let nextPageToken = null;
-        let currentQuery = "";
-        let isLoading = false;
-        let debounceTimer = null;
-        
-        function renderVideos(videos, append = false) {
-          const container = document.getElementById("videos");
-          if (!append) container.innerHTML = "";
-        
-          videos.forEach(v => {
-            container.innerHTML += `
-              <div class="card">
-                <a href="https://www.youtube.com/watch?v=${v.id.videoId}" target="_blank">
-                  <img src="${v.snippet.thumbnails.medium.url}">
-                  <h4>${v.snippet.title}</h4>
-                </a>
-                <p>${v.snippet.channelTitle}</p>
-              </div>
-            `;
-          });
-        }
-        
-        function loadVideos(query = "", append = false) {
-          if (isLoading) return;
-          isLoading = true;
-        
-          currentQuery = query;
-        
-          let url = `/api/videos?q=${encodeURIComponent(query)}`;
-          if (append && nextPageToken) {
-            url += `&pageToken=${nextPageToken}`;
-          }
-        
-          fetch(url)
-            .then(res => res.json())
-            .then(data => {
-              renderVideos(data.videos, append);
-              nextPageToken = data.nextPageToken;
-              isLoading = false;
-            });
-        }
-        
-        function debouncedSearch(value) {
-          clearTimeout(debounceTimer);
-          debounceTimer = setTimeout(() => {
-            if (value.trim().length > 2) {
-              nextPageToken = null;
-              loadVideos(value, false);
-            }
-          }, 500);
-        }
-        
-        function loadCategory(keyword) {
-          document.getElementById("searchInput").value = keyword;
-          nextPageToken = null;
-          loadVideos(keyword, false);
-        }
-        
-        // Infinite scroll trigger
-        window.addEventListener("scroll", () => {
-          if (
-            window.innerHeight + window.scrollY >= document.body.offsetHeight - 200 &&
-            nextPageToken
-          ) {
-            loadVideos(currentQuery, true);
-          }
+  <div id="categories">
+    <button onclick="loadCategory('selenium testing tutorial')">Basics</button>
+    <button onclick="loadCategory('selenium java automation')">Java</button>
+    <button onclick="loadCategory('selenium python automation')">Python</button>
+    <button onclick="loadCategory('selenium framework tutorial')">Framework</button>
+    <button onclick="loadCategory('selenium interview questions')">Interview</button>
+  </div>
+
+  <br>
+
+  <input
+    type="text"
+    id="searchInput"
+    placeholder="Search: selenium java, python, testng..."
+    onkeyup="debouncedSearch(this.value)"
+    style="width:300px;padding:10px;"
+  />
+  <button onclick="searchVideos()">Search</button>
+
+  <div class="grid" id="videos"></div>
+
+  <script>
+    let nextPageToken = null;
+    let currentQuery = "";
+    let isLoading = false;
+    let debounceTimer = null;
+
+    function renderVideos(videos, append = false) {
+      const container = document.getElementById("videos");
+      if (!append) container.innerHTML = "";
+
+      if (!videos || videos.length === 0) {
+        container.innerHTML = "<p>No videos found.</p>";
+        return;
+      }
+
+      videos.forEach(v => {
+        if (!v.id || !v.id.videoId) return;
+
+        container.innerHTML += `
+          <div class="card">
+            <a href="https://www.youtube.com/watch?v=${v.id.videoId}" target="_blank">
+              <img src="${v.snippet.thumbnails.medium.url}">
+              <h4>${v.snippet.title}</h4>
+            </a>
+            <p>${v.snippet.channelTitle}</p>
+          </div>
+        `;
+      });
+    }
+
+    function loadVideos(query = "", append = false) {
+      if (isLoading) return;
+      isLoading = true;
+
+      currentQuery = query;
+
+      let url = `/api/videos?q=${encodeURIComponent(query)}`;
+      if (append && nextPageToken) {
+        url += `&pageToken=${nextPageToken}`;
+      }
+
+      fetch(url)
+        .then(res => res.json())
+        .then(data => {
+          renderVideos(data.videos, append);
+          nextPageToken = data.nextPageToken || null;
+          isLoading = false;
+        })
+        .catch(err => {
+          console.error("API error", err);
+          isLoading = false;
         });
-        
-        // Initial load
-        loadVideos();
-        </script>
-    </body>
+    }
+
+    function searchVideos() {
+      const value = document.getElementById("searchInput").value;
+      if (!value.trim()) return;
+      nextPageToken = null;
+      loadVideos(value, false);
+    }
+
+    function debouncedSearch(value) {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        if (value.trim().length > 2) {
+          nextPageToken = null;
+          loadVideos(value, false);
+        }
+      }, 500);
+    }
+
+    function loadCategory(keyword) {
+      document.getElementById("searchInput").value = keyword;
+      nextPageToken = null;
+      loadVideos(keyword, false);
+    }
+
+    window.addEventListener("scroll", () => {
+      if (
+        window.innerHeight + window.scrollY >= document.body.offsetHeight - 200 &&
+        nextPageToken
+      ) {
+        loadVideos(currentQuery, true);
+      }
+    });
+
+    // Initial load
+    loadVideos("selenium automation tutorial");
+  </script>
+</body>
+</html>
