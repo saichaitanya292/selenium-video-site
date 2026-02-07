@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <title>Selenium Testing Videos | Tutorials, Java, Python, Interview</title>
+  <title>Selenium Testing Videos | Java, Python, Interview</title>
 
   <!-- AdSense -->
   <script async
@@ -11,29 +12,44 @@
     crossorigin="anonymous"></script>
 
   <!-- SEO -->
-  <link rel="canonical" href="https://selenium-video-site.vercel.app/">
+  <link rel="canonical" href="https://selenium-video-site.vercel.app/" />
   <meta name="google-site-verification" content="yXrqeJAP7WV9e7s_9j-JVRBcBnaaQelGx-Y_6MKN0b0" />
-  <meta name="description" content="Watch Selenium testing tutorial videos including Selenium Java, Python automation, frameworks, interview questions and real-world projects." />
+  <meta name="description" content="Free Selenium testing tutorial videos. Learn Selenium Java, Python automation, frameworks and interview questions." />
   <meta name="keywords" content="selenium testing videos, selenium automation tutorial, selenium java, selenium python, selenium interview questions" />
   <meta name="robots" content="index, follow" />
 
   <!-- Open Graph -->
   <meta property="og:title" content="Selenium Testing Video Hub" />
-  <meta property="og:description" content="Free Selenium automation tutorials, interview prep, Java & Python videos." />
+  <meta property="og:description" content="Watch free Selenium automation tutorials and interview prep videos." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://selenium-video-site.vercel.app" />
 
   <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
     button {
       padding: 8px 14px;
       margin-right: 6px;
+      margin-bottom: 6px;
       border: none;
       border-radius: 6px;
       cursor: pointer;
       background: #1e90ff;
       color: white;
     }
-    button:hover { background: #0b5ed7; }
+
+    button:hover {
+      background: #0b5ed7;
+    }
+
+    input {
+      padding: 10px;
+      width: 300px;
+      max-width: 100%;
+    }
 
     .grid {
       display: grid;
@@ -42,19 +58,35 @@
       margin-top: 20px;
     }
 
+    .card {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 10px;
+    }
+
     .card img {
       width: 100%;
-      border-radius: 8px;
+      border-radius: 6px;
     }
 
     .card h4 {
       font-size: 14px;
       margin: 8px 0;
     }
+
+    footer {
+      margin-top: 40px;
+      font-size: 14px;
+    }
+
+    footer a {
+      margin-right: 10px;
+    }
   </style>
 </head>
 
 <body>
+
   <h1>🎯 Selenium Testing Video Hub</h1>
   <h2>Learn Selenium Automation with Videos</h2>
 
@@ -68,18 +100,24 @@
     <button onclick="loadCategory('selenium interview questions')">Interview</button>
   </div>
 
-  <br>
+  <br />
 
   <input
     type="text"
     id="searchInput"
     placeholder="Search: selenium java, python, testng..."
     onkeyup="debouncedSearch(this.value)"
-    style="width:300px;padding:10px;"
   />
   <button onclick="searchVideos()">Search</button>
 
   <div class="grid" id="videos"></div>
+
+  <footer>
+    <hr />
+    <a href="/privacy.html">Privacy Policy</a>
+    <a href="/about.html">About</a>
+    <a href="/contact.html">Contact</a>
+  </footer>
 
   <script>
     let nextPageToken = null;
@@ -89,10 +127,13 @@
 
     function renderVideos(videos, append = false) {
       const container = document.getElementById("videos");
+
       if (!append) container.innerHTML = "";
 
       if (!videos || videos.length === 0) {
-        container.innerHTML = "<p>No videos found.</p>";
+        if (!append) {
+          container.innerHTML = "<p>No videos found.</p>";
+        }
         return;
       }
 
@@ -101,8 +142,10 @@
 
         container.innerHTML += `
           <div class="card">
-            <a href="https://www.youtube.com/watch?v=${v.id.videoId}" target="_blank">
-              <img src="${v.snippet.thumbnails.medium.url}">
+            <a href="https://www.youtube.com/watch?v=${v.id.videoId}"
+               target="_blank"
+               rel="nofollow noopener">
+              <img src="${v.snippet.thumbnails.medium.url}" loading="lazy" />
               <h4>${v.snippet.title}</h4>
             </a>
             <p>${v.snippet.channelTitle}</p>
@@ -113,8 +156,9 @@
 
     function loadVideos(query = "", append = false) {
       if (isLoading) return;
-      isLoading = true;
+      if (!query || query.trim().length < 3) return;
 
+      isLoading = true;
       currentQuery = query;
 
       let url = `/api/videos?q=${encodeURIComponent(query)}`;
@@ -130,7 +174,7 @@
           isLoading = false;
         })
         .catch(err => {
-          console.error("API error", err);
+          console.error("API error:", err);
           isLoading = false;
         });
     }
@@ -170,5 +214,6 @@
     // Initial load
     loadVideos("selenium automation tutorial");
   </script>
+
 </body>
 </html>
