@@ -1,7 +1,29 @@
 <body>
 
+    <style>
+        button {
+          padding: 8px 14px;
+          margin-right: 6px;
+          border: none;
+          border-radius: 6px;
+          cursor: pointer;
+          background: #1e90ff;
+          color: white;
+        }
+        button:hover {
+          background: #0b5ed7;
+        }
+      </style>
+
     <h1>🎯 Selenium Testing Video Hub</h1>
     <p>Search Selenium automation tutorials</p>
+    <div id="categories" style="margin-bottom:15px;">
+        <button onclick="loadCategory('selenium testing tutorial')">Basics</button>
+        <button onclick="loadCategory('selenium java automation')">Java</button>
+        <button onclick="loadCategory('selenium python automation')">Python</button>
+        <button onclick="loadCategory('selenium framework tutorial')">Framework</button>
+        <button onclick="loadCategory('selenium interview questions')">Interview</button>
+      </div>
     
     <input
   type="text"
@@ -17,6 +39,10 @@
     <div class="grid" id="videos"></div>
     
     <script>
+        function loadCategory(keyword) {
+  document.getElementById("searchInput").value = keyword;
+  loadVideos(keyword);
+}
         let debounceTimer = null;
         
         function loadVideos(query = "") {
