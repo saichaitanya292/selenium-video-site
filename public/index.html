@@ -4,11 +4,12 @@
     <p>Search Selenium automation tutorials</p>
     
     <input
-      type="text"
-      id="searchInput"
-      placeholder="Search: selenium java, python, testng..."
-      style="width:300px;padding:10px;"
-    />
+  type="text"
+  id="searchInput"
+  placeholder="Search: selenium java, python, testng..."
+  onkeyup="debouncedSearch(this.value)"
+  style="width:300px;padding:10px;"
+/>
     <button onclick="searchVideos()">Search</button>
     
     <br><br>
@@ -16,36 +17,45 @@
     <div class="grid" id="videos"></div>
     
     <script>
-    function loadVideos(query = "") {
-      const url = query ? `/api/videos?q=${encodeURIComponent(query)}` : "/api/videos";
-    
-      fetch(url)
-        .then(res => res.json())
-        .then(data => {
-          const container = document.getElementById("videos");
-          container.innerHTML = "";
-    
-          data.forEach(v => {
-            container.innerHTML += `
-              <div class="card">
-                <a href="https://www.youtube.com/watch?v=${v.id.videoId}" target="_blank">
-                  <img src="${v.snippet.thumbnails.medium.url}">
-                  <h4>${v.snippet.title}</h4>
-                </a>
-                <p>${v.snippet.channelTitle}</p>
-              </div>
-            `;
-          });
-        });
-    }
-    
-    function searchVideos() {
-      const query = document.getElementById("searchInput").value;
-      loadVideos(query);
-    }
-    
-    // Load default videos on page load
-    loadVideos();
-    </script>
+        let debounceTimer = null;
+        
+        function loadVideos(query = "") {
+          const url = query
+            ? `/api/videos?q=${encodeURIComponent(query)}`
+            : "/api/videos";
+        
+          fetch(url)
+            .then(res => res.json())
+            .then(data => {
+              const container = document.getElementById("videos");
+              container.innerHTML = "";
+        
+              data.forEach(v => {
+                container.innerHTML += `
+                  <div class="card">
+                    <a href="https://www.youtube.com/watch?v=${v.id.videoId}" target="_blank">
+                      <img src="${v.snippet.thumbnails.medium.url}">
+                      <h4>${v.snippet.title}</h4>
+                    </a>
+                    <p>${v.snippet.channelTitle}</p>
+                  </div>
+                `;
+              });
+            });
+        }
+        
+        function debouncedSearch(value) {
+          clearTimeout(debounceTimer);
+        
+          debounceTimer = setTimeout(() => {
+            if (value.trim().length > 2) {
+              loadVideos(value);
+            }
+          }, 500); // ⏱️ wait 500ms after typing stops
+        }
+        
+        // Load default videos on page load
+        loadVideos();
+        </script>
     
     </body>
