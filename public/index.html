@@ -39,49 +39,75 @@
     <div class="grid" id="videos"></div>
     
     <script>
-        function loadCategory(keyword) {
-  document.getElementById("searchInput").value = keyword;
-  loadVideos(keyword);
-}
+        let nextPageToken = null;
+        let currentQuery = "";
+        let isLoading = false;
         let debounceTimer = null;
         
-        function loadVideos(query = "") {
-          const url = query
-            ? `/api/videos?q=${encodeURIComponent(query)}`
-            : "/api/videos";
+        function renderVideos(videos, append = false) {
+          const container = document.getElementById("videos");
+          if (!append) container.innerHTML = "";
+        
+          videos.forEach(v => {
+            container.innerHTML += `
+              <div class="card">
+                <a href="https://www.youtube.com/watch?v=${v.id.videoId}" target="_blank">
+                  <img src="${v.snippet.thumbnails.medium.url}">
+                  <h4>${v.snippet.title}</h4>
+                </a>
+                <p>${v.snippet.channelTitle}</p>
+              </div>
+            `;
+          });
+        }
+        
+        function loadVideos(query = "", append = false) {
+          if (isLoading) return;
+          isLoading = true;
+        
+          currentQuery = query;
+        
+          let url = `/api/videos?q=${encodeURIComponent(query)}`;
+          if (append && nextPageToken) {
+            url += `&pageToken=${nextPageToken}`;
+          }
         
           fetch(url)
             .then(res => res.json())
             .then(data => {
-              const container = document.getElementById("videos");
-              container.innerHTML = "";
-        
-              data.forEach(v => {
-                container.innerHTML += `
-                  <div class="card">
-                    <a href="https://www.youtube.com/watch?v=${v.id.videoId}" target="_blank">
-                      <img src="${v.snippet.thumbnails.medium.url}">
-                      <h4>${v.snippet.title}</h4>
-                    </a>
-                    <p>${v.snippet.channelTitle}</p>
-                  </div>
-                `;
-              });
+              renderVideos(data.videos, append);
+              nextPageToken = data.nextPageToken;
+              isLoading = false;
             });
         }
         
         function debouncedSearch(value) {
           clearTimeout(debounceTimer);
-        
           debounceTimer = setTimeout(() => {
             if (value.trim().length > 2) {
-              loadVideos(value);
+              nextPageToken = null;
+              loadVideos(value, false);
             }
-          }, 500); // ⏱️ wait 500ms after typing stops
+          }, 500);
         }
         
-        // Load default videos on page load
+        function loadCategory(keyword) {
+          document.getElementById("searchInput").value = keyword;
+          nextPageToken = null;
+          loadVideos(keyword, false);
+        }
+        
+        // Infinite scroll trigger
+        window.addEventListener("scroll", () => {
+          if (
+            window.innerHeight + window.scrollY >= document.body.offsetHeight - 200 &&
+            nextPageToken
+          ) {
+            loadVideos(currentQuery, true);
+          }
+        });
+        
+        // Initial load
         loadVideos();
         </script>
-    
     </body>
