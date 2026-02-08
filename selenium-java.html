@@ -7,37 +7,124 @@
 </head>
 <body>
 
-<h1>Selenium Automation Tutorial using Java</h1>
+<h1>Selenium Automation Tutorial Using Java</h1>
 
-<p>This tutorial helps beginners learn Selenium automation testing using Java step by step.</p>
+<p>
+Selenium automation testing using Java is one of the most popular approaches
+for testing modern web applications. Java is widely used in enterprise
+applications, and Selenium integrates seamlessly with Java-based testing
+frameworks, making it a preferred choice for automation engineers.
+</p>
+
+<p>
+This page is designed as a beginner-friendly learning guide that explains
+Selenium automation concepts step by step. The focus is on understanding how
+Selenium works with Java in real-world testing projects rather than simply
+running scripts.
+</p>
+
+<h2>Who Should Learn Selenium with Java?</h2>
+
+<p>
+This tutorial is suitable for beginners who want to start a career in test
+automation, manual testers looking to upgrade their skills, and developers who
+want to understand automated testing concepts.
+</p>
 
 <h2>Prerequisites</h2>
 <ul>
-  <li>Basic Java knowledge</li>
-  <li>JDK installed</li>
-  <li>Eclipse or IntelliJ</li>
+  <li>Basic understanding of Java programming</li>
+  <li>JDK installed on your system</li>
+  <li>An IDE such as Eclipse or IntelliJ IDEA</li>
+  <li>Basic knowledge of HTML and web applications</li>
 </ul>
 
-<h2>Step 1: Setup Selenium with Java</h2>
-<p>Add Selenium dependencies using Maven.</p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/s2X5573MIIw?si=LgM5p3RVfMl11LS9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-<h2>Step 2: Launch Browser</h2>
+<h2>Step 1: Setting Up Selenium with Java</h2>
+
+<p>
+To use Selenium with Java, dependencies must be added to the project. Most
+projects use Maven or Gradle to manage Selenium libraries. Maven simplifies
+dependency management and ensures consistent versions across environments.
+</p>
+
+<p>
+Once dependencies are configured, browser drivers such as ChromeDriver are
+required to communicate with web browsers.
+</p>
+
+<h3>Supporting Video Tutorial</h3>
+
+<p>
+The video below demonstrates how to configure Selenium with Java. It is
+provided as supplementary learning material to support the written explanation
+above.
+</p>
+
+<iframe
+  width="560"
+  height="315"
+  src="https://www.youtube.com/embed/s2X5573MIIw"
+  title="Selenium Java Setup Tutorial"
+  frameborder="0"
+  allowfullscreen>
+</iframe>
+
+<h2>Step 2: Launching a Browser Using WebDriver</h2>
+
+<p>
+Selenium WebDriver provides an interface to control browsers programmatically.
+Once the browser driver is configured, a WebDriver instance can be created to
+launch and control the browser.
+</p>
+
 <pre>
 WebDriver driver = new ChromeDriver();
 driver.get("https://example.com");
 </pre>
 
-<h2>Step 3: Locate Elements</h2>
-<p>Use ID, name, XPath, CSS selectors.</p>
+<h2>Step 3: Locating Web Elements</h2>
 
-<h2>Step 4: Handle Waits</h2>
-<p>Use WebDriverWait and ExpectedConditions.</p>
+<p>
+Selenium interacts with web elements using locators. Commonly used locators
+include ID, name, class name, XPath, and CSS selectors. Choosing reliable
+locators is essential for building stable automation scripts.
+</p>
 
-<h2>Step 5: Page Object Model</h2>
-<p>Improves maintainability of automation code.</p>
+<h2>Step 4: Handling Waits in Selenium</h2>
+
+<p>
+Web applications often load elements dynamically. Selenium provides implicit
+and explicit waits to handle such scenarios. Explicit waits are recommended
+because they wait for specific conditions before interacting with elements.
+</p>
+
+<h2>Step 5: Page Object Model (POM)</h2>
+
+<p>
+The Page Object Model is a design pattern that improves maintainability by
+separating page structure from test logic. Each web page is represented as a
+class, making automation code cleaner and easier to manage.
+</p>
+
+<h2>Next Steps in Learning Selenium with Java</h2>
+
+<p>
+After understanding the basics, learners should explore advanced topics such as
+test frameworks (TestNG or JUnit), data-driven testing, reporting, and CI/CD
+integration. Practical project experience is key to mastering Selenium
+automation.
+</p>
+
+<p>
+This content is provided for educational purposes only and aims to help learners
+build a strong foundation in Selenium automation testing using Java.
+</p>
 
 <hr>
+
+<p>
 <a href="/">← Back to Home</a>
+</p>
 
 </body>
 </html>
