@@ -3,24 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Selenium Testing Videos | Java, Python, Interview</title>
+  <title>Selenium Automation Testing Tutorials | Java, Python, Frameworks</title>
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
-
-  <!-- AdSense -->
-  <script async
-    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6877162813376837"
-    crossorigin="anonymous"></script>
 
   <!-- SEO -->
   <link rel="canonical" href="https://selenium-video-site.vercel.app/" />
   <meta name="google-site-verification" content="yXrqeJAP7WV9e7s_9j-JVRBcBnaaQelGx-Y_6MKN0b0" />
-  <meta name="description" content="Free Selenium testing tutorial videos. Learn Selenium Java, Python automation, frameworks and interview questions." />
+  <meta name="description" content="Learn Selenium automation testing with detailed tutorials, guides, and explanations covering Java, Python, frameworks, and interview preparation." />
   <meta name="keywords" content="selenium testing videos, selenium automation tutorial, selenium java, selenium python, selenium interview questions" />
   <meta name="robots" content="index, follow" />
 
   <!-- Open Graph -->
   <meta property="og:title" content="Selenium Testing Video Hub" />
-  <meta property="og:description" content="Watch free Selenium automation tutorials and interview prep videos." />
+  <meta property="og:description" content="Educational Selenium automation tutorials covering Java, Python, frameworks, and interview preparation." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://selenium-video-site.vercel.app" />
 
@@ -51,28 +46,6 @@
       max-width: 100%;
     }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 16px;
-      margin-top: 20px;
-    }
-
-    .card {
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      padding: 10px;
-    }
-
-    .card img {
-      width: 100%;
-      border-radius: 6px;
-    }
-
-    .card h4 {
-      font-size: 14px;
-      margin: 8px 0;
-    }
 
     footer {
       margin-top: 40px;
@@ -96,6 +69,12 @@
   </ul>
 
   <h1>🎯 Selenium Testing Video Hub</h1>
+  <p>
+This website is an educational resource dedicated to Selenium automation
+testing. All content published here is original, written for learning purposes,
+and intended to help beginners and professionals understand Selenium concepts
+used in real-world testing projects.
+</p>
   <h2>Learn Selenium Automation with Videos</h2>
 
 
@@ -103,7 +82,7 @@
 
 
   <section>
-    <h1>Selenium Automation Testing – Complete Learning Guide</h1>
+    <h2>Selenium Automation Testing – Complete Learning Guide</h2>
 
     <p>
       Selenium is one of the most widely used open-source automation testing tools
@@ -160,16 +139,7 @@
       <li>Common Selenium interview questions</li>
     </ul>
 
-    <h2>Selenium Automation Tutorial Videos</h2>
-
-    <p>
-      The video tutorials below are provided as supporting learning material to
-      help reinforce the concepts explained above. These videos are intended for
-      educational purposes only.
-    </p>
   </section>
-
-  <div class="grid" id="videos"></div>
 
   <footer>
     <hr />
@@ -177,35 +147,6 @@
     <a href="/about.html">About</a>
     <a href="/contact.html">Contact</a>
   </footer>
-
-  <script>
-  const videos = [
-    "https://www.youtube.com/embed/2oG2bQx1x7U",
-    "https://www.youtube.com/embed/6v0Jp1h4nN4",
-    "https://www.youtube.com/embed/Wxj8j9R3qYc",
-    "https://www.youtube.com/embed/0kQj4vZ5G9E",
-    "https://www.youtube.com/embed/8J7Wv4Zk7T0",
-    "https://www.youtube.com/embed/YX9zL5xK9aE"
-  ];
-
-  const container = document.getElementById("videos");
-
-  videos.forEach(src => {
-    const div = document.createElement("div");
-    div.className = "card";
-    div.innerHTML = `
-      <iframe
-        width="100%"
-        height="200"
-        src="${src}"
-        title="Selenium Tutorial"
-        frameborder="0"
-        allowfullscreen>
-      </iframe>
-    `;
-    container.appendChild(div);
-  });
-</script>
 
 </body>
 </html>
