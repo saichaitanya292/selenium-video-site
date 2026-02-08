@@ -98,25 +98,76 @@
   <h1>🎯 Selenium Testing Video Hub</h1>
   <h2>Learn Selenium Automation with Videos</h2>
 
-  <p>Search Selenium automation tutorials</p>
-
-  <div id="categories">
-    <button onclick="loadCategory('selenium testing tutorial')">Basics</button>
-    <button onclick="loadCategory('selenium java automation')">Java</button>
-    <button onclick="loadCategory('selenium python automation')">Python</button>
-    <button onclick="loadCategory('selenium framework tutorial')">Framework</button>
-    <button onclick="loadCategory('selenium interview questions')">Interview</button>
-  </div>
 
   <br />
 
-  <input
-    type="text"
-    id="searchInput"
-    placeholder="Search: selenium java, python, testng..."
-    onkeyup="debouncedSearch(this.value)"
-  />
-  <button onclick="searchVideos()">Search</button>
+
+  <section>
+    <h1>Selenium Automation Testing – Complete Learning Guide</h1>
+
+    <p>
+      Selenium is one of the most widely used open-source automation testing tools
+      for validating web applications across different browsers and platforms.
+      It is a must-have skill for software testers, QA engineers, and automation
+      professionals looking to advance their careers in software testing.
+    </p>
+
+    <p>
+      This website is created to provide a structured and beginner-friendly
+      learning path for Selenium automation testing. The goal is to help learners
+      understand core concepts, best practices, and real-world usage of Selenium
+      in professional projects.
+    </p>
+
+    <h2>What Is Selenium Automation Testing?</h2>
+
+    <p>
+      Selenium is a browser automation framework that allows testers to automate
+      interactions with web applications. It supports popular browsers such as
+      Chrome, Firefox, Edge, and Safari and works across different operating
+      systems.
+    </p>
+
+    <p>
+      Selenium supports multiple programming languages including Java and Python,
+      which makes it suitable for both beginners and experienced automation
+      engineers. It is commonly used for regression testing, functional testing,
+      and cross-browser testing.
+    </p>
+
+    <h2>Why Learn Selenium Automation?</h2>
+
+    <ul>
+      <li>Strong demand for Selenium automation engineers</li>
+      <li>Open-source and free testing framework</li>
+      <li>Supports modern browsers and CI/CD pipelines</li>
+      <li>Widely used in enterprise automation projects</li>
+    </ul>
+
+    <h2>What You Will Learn From This Site</h2>
+
+    <p>
+      This site provides educational content designed to help you build a solid
+      foundation in Selenium automation testing. The tutorials and guides focus
+      on practical usage rather than just theory.
+    </p>
+
+    <ul>
+      <li>Selenium basics and environment setup</li>
+      <li>Selenium automation using Java</li>
+      <li>Selenium automation using Python</li>
+      <li>Framework concepts and Page Object Model</li>
+      <li>Common Selenium interview questions</li>
+    </ul>
+
+    <h2>Selenium Automation Tutorial Videos</h2>
+
+    <p>
+      The video tutorials below are provided as supporting learning material to
+      help reinforce the concepts explained above. These videos are intended for
+      educational purposes only.
+    </p>
+  </section>
 
   <div class="grid" id="videos"></div>
 
@@ -128,100 +179,33 @@
   </footer>
 
   <script>
-    let nextPageToken = null;
-    let currentQuery = "";
-    let isLoading = false;
-    let debounceTimer = null;
+  const videos = [
+    "https://www.youtube.com/embed/2oG2bQx1x7U",
+    "https://www.youtube.com/embed/6v0Jp1h4nN4",
+    "https://www.youtube.com/embed/Wxj8j9R3qYc",
+    "https://www.youtube.com/embed/0kQj4vZ5G9E",
+    "https://www.youtube.com/embed/8J7Wv4Zk7T0",
+    "https://www.youtube.com/embed/YX9zL5xK9aE"
+  ];
 
-    function renderVideos(videos, append = false) {
-      const container = document.getElementById("videos");
+  const container = document.getElementById("videos");
 
-      if (!append) container.innerHTML = "";
-
-      if (!videos || videos.length === 0) {
-        if (!append) {
-          container.innerHTML = "<p>No videos found.</p>";
-        }
-        return;
-      }
-
-      videos.forEach(v => {
-        if (!v.id || !v.id.videoId) return;
-
-        container.innerHTML += `
-          <div class="card">
-            <a href="https://www.youtube.com/watch?v=${v.id.videoId}"
-               target="_blank"
-               rel="nofollow noopener">
-              <img src="${v.snippet.thumbnails.medium.url}" loading="lazy" />
-              <h4>${v.snippet.title}</h4>
-            </a>
-            <p>${v.snippet.channelTitle}</p>
-          </div>
-        `;
-      });
-    }
-
-    function loadVideos(query = "", append = false) {
-      if (isLoading) return;
-      if (!query || query.trim().length < 3) return;
-
-      isLoading = true;
-      currentQuery = query;
-
-      let url = `/api/videos?q=${encodeURIComponent(query)}`;
-      if (append && nextPageToken) {
-        url += `&pageToken=${nextPageToken}`;
-      }
-
-      fetch(url)
-        .then(res => res.json())
-        .then(data => {
-          renderVideos(data.videos, append);
-          nextPageToken = data.nextPageToken || null;
-          isLoading = false;
-        })
-        .catch(err => {
-          console.error("API error:", err);
-          isLoading = false;
-        });
-    }
-
-    function searchVideos() {
-      const value = document.getElementById("searchInput").value;
-      if (!value.trim()) return;
-      nextPageToken = null;
-      loadVideos(value, false);
-    }
-
-    function debouncedSearch(value) {
-      clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(() => {
-        if (value.trim().length > 2) {
-          nextPageToken = null;
-          loadVideos(value, false);
-        }
-      }, 500);
-    }
-
-    function loadCategory(keyword) {
-      document.getElementById("searchInput").value = keyword;
-      nextPageToken = null;
-      loadVideos(keyword, false);
-    }
-
-    window.addEventListener("scroll", () => {
-      if (
-        window.innerHeight + window.scrollY >= document.body.offsetHeight - 200 &&
-        nextPageToken
-      ) {
-        loadVideos(currentQuery, true);
-      }
-    });
-
-    // Initial load
-    loadVideos("selenium automation tutorial");
-  </script>
+  videos.forEach(src => {
+    const div = document.createElement("div");
+    div.className = "card";
+    div.innerHTML = `
+      <iframe
+        width="100%"
+        height="200"
+        src="${src}"
+        title="Selenium Tutorial"
+        frameborder="0"
+        allowfullscreen>
+      </iframe>
+    `;
+    container.appendChild(div);
+  });
+</script>
 
 </body>
 </html>
